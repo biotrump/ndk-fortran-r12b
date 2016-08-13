@@ -1,0 +1,78 @@
+diff --git a/build-gcc.sh b/build-gcc.sh
+index 4893461..a83f8d4 100755
+--- a/build-gcc.sh
++++ b/build-gcc.sh
+@@ -70,7 +70,7 @@ register_var_option "--ppl-version=<version>" PPL_VERSION "Specify ppl version"
+ PACKAGE_DIR=
+ register_var_option "--package-dir=<path>" PACKAGE_DIR "Create archive tarball in specific directory"
+ 
+-ENABLE_LANGUAGES="c,c++"
++ENABLE_LANGUAGES="c,c++,fortran"
+ register_var_option "--enable-languages=<name>" ENABLE_LANGUAGES "Experimental: specify which languages to build"
+ 
+ BUILD_DEBUGGABLE="no"
+@@ -504,7 +504,8 @@ if [ "$ABI_CONFIGURE_HOST" != "$ABI_CONFIGURE_TARGET" ]; then
+     run rm -rf "$TOOLCHAIN_INSTALL_PATH/$ABI_CONFIGURE_HOST"
+ fi
+ # remove sysroot
+-run rm -rf "$TOOLCHAIN_INSTALL_PATH/sysroot"
++#StandAlone toolchain without "ndk-build"
++#run rm -rf "$TOOLCHAIN_INSTALL_PATH/sysroot"
+ 
+ # clean up link in /tmp if needed
+ if [ "$OBSCURE_PREFIX" == "yes" ]; then
+@@ -587,8 +588,9 @@ if [ -f "$SRC_DIR/SOURCES" ]; then
+     cp "$SRC_DIR/SOURCES" "$TOOLCHAIN_INSTALL_PATH/SOURCES"
+ fi
+ 
+-echo "Removing sysroot for $TOOLCHAIN"
+-rm -rf $TOOLCHAIN_INSTALL_PATH/sysroot
++#Standalone toolchain
++#echo "Removing sysroot for $TOOLCHAIN"
++#rm -rf $TOOLCHAIN_INSTALL_PATH/sysroot
+ 
+ if [ "$PACKAGE_DIR" ]; then
+     make_repo_prop "$TMPDIR/$TOOLCHAIN_SUBDIR"
+diff --git a/gcc-4.9/libgfortran/configure b/gcc-4.9/libgfortran/configure
+index d3a40f3..9a46eae 100755
+--- a/gcc-4.9/libgfortran/configure
++++ b/gcc-4.9/libgfortran/configure
+@@ -2586,7 +2586,7 @@ as_fn_append ac_func_list " getcwd"
+ as_fn_append ac_func_list " localtime_r"
+ as_fn_append ac_func_list " gmtime_r"
+ as_fn_append ac_func_list " getpwuid_r"
+-as_fn_append ac_func_list " ttyname_r"
++#as_fn_append ac_func_list " ttyname_r"
+ as_fn_append ac_func_list " clock_gettime"
+ as_fn_append ac_func_list " readlink"
+ as_fn_append ac_func_list " getgid"
+diff --git a/gcc-4.9/libgfortran/mk-kinds-h.sh b/gcc-4.9/libgfortran/mk-kinds-h.sh
+index 98a95ab..fdbccb0 100755
+--- a/gcc-4.9/libgfortran/mk-kinds-h.sh
++++ b/gcc-4.9/libgfortran/mk-kinds-h.sh
+@@ -51,7 +51,10 @@ echo "use iso_c_binding; print *, c_long_double ; end" > tmq$$.f90
+ long_double_kind=`$compile -S -fdump-parse-tree tmq$$.f90 | grep TRANSFER \
+ 			| sed 's/ *TRANSFER *//'`
+ rm -f tmq$$.*
+-
++echo "use iso_c_binding; print *, c_double ; end" > tmq$$.f90
++double_kind=`$compile -S -fdump-parse-tree tmq$$.f90 | grep TRANSFER \
++			| sed 's/ *TRANSFER *//'`
++rm -f tmq$$.*
+ 
+ for k in $possible_real_kinds; do
+   echo "  real (kind=$k) :: x" > tmp$$.f90
+@@ -66,10 +69,12 @@ for k in $possible_real_kinds; do
+ 	    ctype="__float128"
+ 	    cplxtype="_Complex float __attribute__((mode(TC)))"
+ 	    suffix="q"
+-	  else
++      elif [ $long_double_kind -ne $double_kind ]; then
+ 	    ctype="long double"
+ 	    cplxtype="complex long double"
+ 	    suffix="l"
++      else
++        break;
+ 	  fi ;;
+       *) echo "$0: Unknown type" >&2 ; exit 1 ;;
+     esac

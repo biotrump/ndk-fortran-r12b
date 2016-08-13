@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <remote  name="aosp"
+           fetch="https://android.googlesource.com"
+           review="https://android-review.googlesource.com/" />
+  <default revision="refs/tags/ndk-r12b"
+           remote="aosp"
+           sync-j="4" />
+
+  <project path="benchmark" name="toolchain/benchmark" revision="master" />
+  <project path="binutils" name="toolchain/binutils" />
+  <project path="build" name="toolchain/build" />
+  <project path="ccache" name="toolchain/ccache" revision="master" />
+  <project path="clang" name="toolchain/clang" revision="master"/>
+  <project path="cloog" name="toolchain/cloog" />
+  <project path="compiler-rt" name="toolchain/compiler-rt" revision="master" />
+  <project path="expat" name="toolchain/expat" />
+  <project path="gcc" name="toolchain/gcc" />
+  <project path="gdb" name="toolchain/gdb" />
+  <project path="gmp" name="toolchain/gmp" />
+  <project path="gold" name="toolchain/gold" revision="master"/>
+  <project path="isl" name="toolchain/isl" />
+  <project path="llvm" name="toolchain/llvm" revision="master"/>
+  <project path="mpc" name="toolchain/mpc" />
+  <project path="mpfr" name="toolchain/mpfr" />
+  <project path="perl" name="toolchain/perl" revision="master" />
+  <project path="ppl" name="toolchain/ppl" />
+  <project path="python" name="toolchain/python" />
+  <project path="sed" name="toolchain/sed" />
+  <project path="yasm" name="toolchain/yasm" />
+
+</manifest>
