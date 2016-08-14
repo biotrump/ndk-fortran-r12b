@@ -1,6 +1,6 @@
 #!/bin/bash
 #https://github.com/biotrump/android-gfortran
-#gcc 4.8
+#gcc 4.8 only, 4.9 can't compile NDK successfuly!
 sudo update-alternatives --display gcc
 #change the default gcc
 sudo update-alternatives --config gcc
@@ -27,6 +27,13 @@ repo sync
 #git clone -b ndk-r12b https://android.googlesource.com/toolchain/isl
 #git clone -b ndk-r12b https://android.googlesource.com/toolchain/sed
 #git clone -b ndk-r12b https://android.googlesource.com/toolchain/binutils
+
+#pushd ~/NDK/ndk/build/lib/
+#patch -p1  << build-lib-build_support.diff
+#popd
+#pushd gcc
+#patch -p1 << ../gcc.diff
+#./build.py
 
 #following https://github.com/biotrump/android-gfortran
 
