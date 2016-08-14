@@ -1,5 +1,5 @@
 diff --git a/build-gcc.sh b/build-gcc.sh
-index 4893461..6be555a 100755
+index 4893461..a83f8d4 100755
 --- a/build-gcc.sh
 +++ b/build-gcc.sh
 @@ -70,7 +70,7 @@ register_var_option "--ppl-version=<version>" PPL_VERSION "Specify ppl version"
@@ -11,24 +11,28 @@ index 4893461..6be555a 100755
  register_var_option "--enable-languages=<name>" ENABLE_LANGUAGES "Experimental: specify which languages to build"
  
  BUILD_DEBUGGABLE="no"
-@@ -504,6 +504,7 @@ if [ "$ABI_CONFIGURE_HOST" != "$ABI_CONFIGURE_TARGET" ]; then
+@@ -504,7 +504,8 @@ if [ "$ABI_CONFIGURE_HOST" != "$ABI_CONFIGURE_TARGET" ]; then
      run rm -rf "$TOOLCHAIN_INSTALL_PATH/$ABI_CONFIGURE_HOST"
  fi
  # remove sysroot
-+#StandAlone toolchain without "ndk-build" to comment the following line
- run rm -rf "$TOOLCHAIN_INSTALL_PATH/sysroot"
+-run rm -rf "$TOOLCHAIN_INSTALL_PATH/sysroot"
++#StandAlone toolchain without "ndk-build"
++#run rm -rf "$TOOLCHAIN_INSTALL_PATH/sysroot"
  
  # clean up link in /tmp if needed
-@@ -587,7 +588,8 @@ if [ -f "$SRC_DIR/SOURCES" ]; then
+ if [ "$OBSCURE_PREFIX" == "yes" ]; then
+@@ -587,8 +588,9 @@ if [ -f "$SRC_DIR/SOURCES" ]; then
      cp "$SRC_DIR/SOURCES" "$TOOLCHAIN_INSTALL_PATH/SOURCES"
  fi
  
 -echo "Removing sysroot for $TOOLCHAIN"
-+#Standalone toolchain to comment the following line
+-rm -rf $TOOLCHAIN_INSTALL_PATH/sysroot
++#Standalone toolchain
 +#echo "Removing sysroot for $TOOLCHAIN"
- rm -rf $TOOLCHAIN_INSTALL_PATH/sysroot
++#rm -rf $TOOLCHAIN_INSTALL_PATH/sysroot
  
  if [ "$PACKAGE_DIR" ]; then
+     make_repo_prop "$TMPDIR/$TOOLCHAIN_SUBDIR"
 diff --git a/gcc-4.9/libgfortran/configure b/gcc-4.9/libgfortran/configure
 index d3a40f3..9a46eae 100755
 --- a/gcc-4.9/libgfortran/configure
