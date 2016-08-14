@@ -33,3 +33,5 @@ repo sync
 #How to build?
 #cd ~/NDK/toolchain
 #you can run build.py under toolchain/gcc
+#cd gcc
+#./build.py
