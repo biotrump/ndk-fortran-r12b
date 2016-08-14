@@ -1,0 +1,12 @@
+--- build_support.py	2016-06-15 00:00:04.000000000 +0800
++++ /home/thomas/NDK/ndk-fortran-r12b/build-lib-build_support.py	2016-08-14 12:51:28.635570672 +0800
+@@ -137,7 +137,8 @@
+     arch = toolchain_to_arch(toolchain)
+     version = default_api_level(arch)
+ 
+-    prebuilt_ndk = 'prebuilts/ndk/current'
++    #prebuilt_ndk = 'prebuilts/ndk/current'
++    prebuilt_ndk = 'ndk'
+     sysroot_subpath = 'platforms/android-{}/arch-{}'.format(version, arch)
+     return android_path(prebuilt_ndk, sysroot_subpath)
+ 
