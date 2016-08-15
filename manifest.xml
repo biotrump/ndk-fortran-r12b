@@ -4,11 +4,15 @@
   <remote  name="aosp"
            fetch="https://android.googlesource.com"
            review="https://android-review.googlesource.com/" />
+
+  <remote  name="github"
+		  fetch="https://github.com/buffer51/" />
+
   <default revision="refs/tags/ndk-r12b"
            remote="aosp"
            sync-j="4" />
 
-  <project path="android-gfortran" name="android-gfortran" revision="master" />
+  <project path="android-gfortran" name="android-gfortran" remote="github" revision="master" />
   <project path="benchmark" name="toolchain/benchmark" revision="master" />
   <project path="binutils" name="toolchain/binutils" />
   <project path="build" name="toolchain/build" />

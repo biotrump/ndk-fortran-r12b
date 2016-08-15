@@ -10,24 +10,12 @@ sudo update-alternatives --config gcc
 #download NDK toolchain r12b from https://developer.android.com/ndk/downloads/index.html
 #unzip NDK toolchain
 #rename the "android-ndk-r12b" to "ndk" for later build fortran toolchain
-#2. mkdir toolchain under ~/NDK
+#2. git clone git@192.168.9.54:thomastsai/ndk-fortran-r12b.git toolchain
 #cd ~/NDK/toolchain
 #3. clone the following repos by manifest
 repo init -u https://android.googlesource.com/toolchain/manifest/
 cp manifest.xml .repo/manifest.xml
 repo sync
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/gcc
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/build
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/gmp
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/gdb
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/mpc
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/mpfr
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/expat
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/ppl
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/cloog
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/isl
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/sed
-#git clone -b ndk-r12b https://android.googlesource.com/toolchain/binutils
 
 #4. patch build_support.py
 #pushd ~/NDK/ndk/build/lib/
@@ -51,22 +39,4 @@ repo sync
 #cd toolchains
 
 #copy the toolchains
-#tar xf  ~/NDK/out/dist/gcc-arm64-linux-x86_64.tar.bz2
-#mkdir -p prebuilt/linux-x86_64
-#mv aarch64-linux-android-4.9/* prebuilt/linux-x86_64/
-#mv prebuilt/ aarch64-linux-android-4.9/
-
-#tar xf  ~/NDK/out/dist/gcc-arm-linux-x86_64.tar.bz2
-#mkdir -p prebuilt/linux-x86_64
-#mv gcc-arm-linux-x86_64/* prebuilt/linux-x86_64/
-#mv prebuilt/ gcc-arm-linux-x86_64/
-
-gcc-mips64-linux-x86_64.tar.bz2
-
-gcc-mips-linux-x86_64.tar.bz2
-
-gcc-x86_64-linux-x86_64.tar.bz2
-
-gcc-x86-linux-x86_64.tar.bz2
-
-
+#./cp_toolchain.sh
