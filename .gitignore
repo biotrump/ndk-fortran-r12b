@@ -19,6 +19,7 @@ tegra/
 #*.cmake
 
 ##ignore the sub folders managed by repos
+android-gfortran
 benchmark
 binutils
 build

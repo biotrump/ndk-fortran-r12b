@@ -45,4 +45,28 @@ repo sync
 #you can run build.py under toolchain/gcc
 #cd gcc
 #./build.py
+#cd ~/NDK/ndk
+#mv toolchains toolchains.org
+#mkdir toolchains
+#cd toolchains
+
+#copy the toolchains
+#tar xf  ~/NDK/out/dist/gcc-arm64-linux-x86_64.tar.bz2
+#mkdir -p prebuilt/linux-x86_64
+#mv aarch64-linux-android-4.9/* prebuilt/linux-x86_64/
+#mv prebuilt/ aarch64-linux-android-4.9/
+
+#tar xf  ~/NDK/out/dist/gcc-arm-linux-x86_64.tar.bz2
+#mkdir -p prebuilt/linux-x86_64
+#mv gcc-arm-linux-x86_64/* prebuilt/linux-x86_64/
+#mv prebuilt/ gcc-arm-linux-x86_64/
+
+gcc-mips64-linux-x86_64.tar.bz2
+
+gcc-mips-linux-x86_64.tar.bz2
+
+gcc-x86_64-linux-x86_64.tar.bz2
+
+gcc-x86-linux-x86_64.tar.bz2
+
 

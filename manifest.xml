@@ -8,6 +8,7 @@
            remote="aosp"
            sync-j="4" />
 
+  <project path="android-gfortran" name="android-gfortran" revision="master" />
   <project path="benchmark" name="toolchain/benchmark" revision="master" />
   <project path="binutils" name="toolchain/binutils" />
   <project path="build" name="toolchain/build" />
